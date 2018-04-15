@@ -77,29 +77,38 @@ void loop()  {
    // if (toggle = 1) {toggle = 0;}
 //read the Red button value into a variable
  
-do
 {
           int sensorValRed = digitalRead(46);
           if (sensorValRed == LOW) {
             modymode = 4;     // all stop
-            keypressed = 1;
+            //keypressed = 1;
           } 
           //read the Yellow button value into a variable
           int sensorValYel = digitalRead(48);
           if (sensorValYel == LOW) {
             modymode = 3;     // pause
-            keypressed = 1;
+            //keypressed = 1;
           } 
           //read the Green button value into a variable
           int sensorValGre = digitalRead(50);
           if (sensorValGre == LOW) {
             modymode = 2;     //start the match
-            keypressed = 1;
+            //keypressed = 1;
+          }//read the Green button value into a variable
+          int sensorValPlayerGiveUp = digitalRead(50);  //i need to look at the circuit board to see what pin I wired this too
+          if (sensorValPlayerGiveUp == LOW) {
+            modymode = 1;     //start the match
+            //keypressed = 1;
+          }//read the Green button value into a variable
+          int sensorValPlayerReady = digitalRead(50);     //i need to look at the circuit board to see what pin I wired this too
+          if (sensorValPlayerReady == LOW) {
+            modymode = 5;     //start the match
+            //keypressed = 1;
           }
+  
           //delay(50);          // 
- } while (keypressed = 0);
 
-
+  
     Serial.print("Mode  ");
     Serial.println(modymode);
     Serial.print(" Toggle ");
@@ -136,9 +145,7 @@ switch (modymode) {
         int val_profile_BIT3_4 = digitalRead(profile_BIT3_4);
         int val_profile_BIT3_8 = digitalRead(profile_BIT3_8);
 
-
         //int     profile =  0; needed in loop to reset to 0 for each pass
-        
         // turn bit values into single profile value by adding decimal value 
         // of each bit to profile variable
         
@@ -190,16 +197,22 @@ switch (modymode) {
       break;
     case 3:
       {
-      //pause the timmer and blink current time
+      //pause the timmer and blink yellow button
             if (toggle = 1) {
-              digitalWrite(RedLightControl,LOW);
+              // insert some kind of delay
+              //delayCTR = delayCTR + 1
+              //delayCTR > 1000 then toggle = 0; delayCTR = 0
+              //digitalWrite(RedLightControl,LOW);
               digitalWrite(YellowLightControl,LOW);
-              digitalWrite(GreenLightControl,LOW);
+              //digitalWrite(GreenLightControl,LOW);
               toggle = 0;
             } else {
-              digitalWrite(RedLightControl,HIGH);
+              // insert some kind of delay
+              //delayCTR = delayCTR + 1
+              //delayCTR > 1000 then toggle = 1; delayCTR = 0
+              //digitalWrite(RedLightControl,HIGH);
               digitalWrite(YellowLightControl,HIGH);
-              digitalWrite(GreenLightControl,HIGH);
+              //digitalWrite(GreenLightControl,HIGH);
               toggle = 1;
             }
       }
@@ -207,6 +220,7 @@ switch (modymode) {
     case 4:
       {
       //stop go back to demo mode
+        //reset the time to the value set on the SCSI switches 
       modymode = 5;
       }
       break;
